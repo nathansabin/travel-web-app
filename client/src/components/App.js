@@ -5,10 +5,7 @@ import Header from './header';
 import Footer from './footer';
 import {
   Home,
-  Login,
-  Buy,
-  Sell,
-  History
+  Login
 } from "../pages";
 
 
@@ -25,18 +22,6 @@ function App() {
             <Route
               path="/home"
               element={<Home/>}
-            />
-            <Route
-              path="/buy"
-              element={<Buy/>}
-            />
-            <Route
-              path="/sell"
-              element={<Sell/>}
-            />
-            <Route
-              path="/history"
-              element={<History/>}
             />
           </Routes>
         </Router>
