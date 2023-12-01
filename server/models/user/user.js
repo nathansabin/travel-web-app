@@ -20,7 +20,7 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function(next) {
     if (this.isNew || this.isModified('password')) {
         const saltRounds = 15;
         this.password = await bcrypt.hash(this.password, saltRounds);
@@ -29,7 +29,7 @@ userSchema.pre('save', async (next) => {
     next();
 });
 
-userSchema.methods.checkPassword = async (password) => {
+userSchema.methods.checkPassword = async function(password){
     return bcrypt.compare(password, this.password);
 }
 
