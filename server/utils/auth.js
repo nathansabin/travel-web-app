@@ -3,8 +3,8 @@ const key = 'password';
 const time = '2h';
 
 class Auth {
-    sign(user) {
-        jwt.sign(
+    async sign(user) {
+        return await jwt.sign(
             user,
             key, 
             { expiresIn: time }
