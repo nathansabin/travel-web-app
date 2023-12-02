@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
@@ -7,9 +7,15 @@ import {
   Home,
   Login
 } from "../pages";
-
+import auth from '../utils/auth';
 
 function App() {
+  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(auth.checkLogin);
+  });
+
   return (
     <div className="App">
       <Header />
