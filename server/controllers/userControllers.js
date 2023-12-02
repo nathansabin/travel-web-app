@@ -11,9 +11,11 @@ module.exports = {
             let token = await User.findOne(userData);
             if (!token) {
                 res.status(404).json({ message: '404: not found'});
+                return next();
             }
             if (!await token.checkPassword(req.body.password)) {
                 res.status(500).json({ message: '500: server error'});
+                return next();
             }
     
             token = {
@@ -27,7 +29,7 @@ module.exports = {
             res.status(500).json({ message: `500: server error ${err}`});
         }
     },
-    register: (req, res) => {
+    register: (req, res, next) => {
         try {
             let username = req.body.username;
             let password = req.body.password;
