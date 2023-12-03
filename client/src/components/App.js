@@ -7,15 +7,8 @@ import {
   Home,
   Login
 } from "../pages";
-import auth from '../utils/auth';
 
 function App() {
-  const [ isLoggedIn, setIsLoggedIn ] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(auth.checkLogin);
-  });
-
   return (
     <div className="App">
       <Header />

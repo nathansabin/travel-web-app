@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import './login.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import axios from 'axios';
+import auth from '../../utils/auth';
 
 function Login() {
-    const loginUser = () => {
-        
+    const [formState, setFormState] = useState({ username: '', password: ''});
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormState({
+            ...formState,
+            [name]: value
+        });
+    }
+
+    const loginUser = async(event) => {
+        event.preventDefault();
+
+        const { username, password } = formState;
+        const token = await auth.login(username, password);
     }
 
     return (
@@ -15,9 +28,9 @@ function Login() {
         <div className='container'>
             <h1 className='col-12'>Login</h1>
             <form className='col col-vert'>
-                <input type="username" className='col-12 col-lg-8 mb-2'></input>
-                <input type="password" className='col-12 col-lg-8 mb-3'></input>
-                <input type="submit" onClick={loginUser} className='col-8 col-lg-6 btn btn-primary button'></input>
+                <input onChange={handleChange} name='username' type="username" className='col-12 col-lg-8 mb-2'></input>
+                <input onChange={handleChange} name='password' type="password" className='col-12 col-lg-8 mb-3'></input>
+                <input onClick={loginUser} type="submit" className='col-8 col-lg-6 btn btn-primary button'></input>
             </form>
         </div>
         </div>

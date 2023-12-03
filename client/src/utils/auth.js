@@ -1,4 +1,4 @@
-import decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 class Auth {
@@ -12,7 +12,7 @@ class Auth {
     }
 
     isTokenExpired() {
-        const decoded = decode(this.getToken);
+        const decoded = jwtDecode(this.getToken);
         if (decoded.exp < Date.now() / 1000) {
             localStorage.removeItem('id_token');
             return true;
@@ -25,10 +25,15 @@ class Auth {
     }
 
     async login(username, password) {
-        const token = await axios.get('/user/auth/login', {
-            username: username,
-            password: password
-        });
+        let token = await axios(
+            {
+                method: 'post',
+                url: 'http://localhost:3001/user/auth/login', 
+                data: { username:username, password: password}
+            }
+            );
+        token = token.data;
+        console.log(token);
         if (!token) {
             return false;
         }
