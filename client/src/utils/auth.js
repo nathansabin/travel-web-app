@@ -6,10 +6,10 @@ class Auth {
         return localStorage.getItem('id_token');
     }
 
-    isLoggedIn() {
-        const token = this.getToken();
-        return token && !this.isTokenExpired() ? true : false;
-    }
+    // isLoggedIn() {
+    //     const token = this.getToken();
+    //     return token && !this.isTokenExpired() ? true : false;
+    // }
 
     isTokenExpired() {
         const decoded = jwtDecode(this.getToken);
