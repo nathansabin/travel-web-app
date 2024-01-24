@@ -6,6 +6,7 @@ import auth from '../../utils/auth';
 
 function Login() {
     const [formState, setFormState] = useState({ username: '', password: ''});
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -18,9 +19,15 @@ function Login() {
 
     const loginUser = async(event) => {
         event.preventDefault();
+        setLoading(true);
 
         const { username, password } = formState;
-        const token = await auth.login(username, password);
+        const login = await auth.login(username, password);
+
+        setLoading(false);
+        if (login) {
+            window.location.assign('/');
+        }
     }
 
     return (
@@ -32,6 +39,11 @@ function Login() {
                 <input onChange={handleChange} name='password' type="password" className='col-12 col-lg-8 mb-3'></input>
                 <input onClick={loginUser} type="submit" className='col-8 col-lg-6 btn btn-primary button'></input>
             </form>
+            {loading && 
+            <div>
+                <h3>Loading...</h3>
+            </ div>
+            }
         </div>
         </div>
     );
