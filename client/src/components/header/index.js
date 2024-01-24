@@ -6,9 +6,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
-
     useEffect(() => {
         setLoggedIn(auth.isLoggedIn);
+
     });
 
     const logout = () => {

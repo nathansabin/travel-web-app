@@ -19,7 +19,7 @@ function App() {
               element={<Login/>}
             />
             <Route
-              path="/home"
+              path="/"
               element={<Home/>}
             />
           </Routes>
