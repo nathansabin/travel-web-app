@@ -5,7 +5,8 @@ import Header from './header';
 import Footer from './footer';
 import {
   Home,
-  Login
+  Login,
+  Register
 } from "../pages";
 
 function App() {
@@ -17,6 +18,10 @@ function App() {
             <Route
               path="/login"
               element={<Login/>}
+            />
+            <Route
+              path="/register"
+              element={<Register/>}
             />
             <Route
               path="/"

@@ -8,11 +8,11 @@ function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
         setLoggedIn(auth.isLoggedIn);
-
     });
 
     const logout = () => {
         auth.logout();
+        setLoggedIn(false);
         window.location.assign('/login');
     } 
 
@@ -29,9 +29,18 @@ function Header() {
                             Menu
                         </button>
                         <ul show className="dropdown-menu">
-                            <a href="/login"><li className='dropdown-item'>Login</li></a>
+                            {!loggedIn &&
+                            <>
+                                <a href="/login"><li className='dropdown-item'>Login</li></a>
+                                <a href="/register"><li className='dropdown-item'>register</li></a>
+                            </>
+                            }
+                            {loggedIn && 
+                            <>
                             <li onClick={logout} className='dropdown-item'>Logout</li>
-                            <a href="/home"><li className='dropdown-item'>Home</li></a>
+                            </>
+                            }
+                            <a href="/"><li className='dropdown-item'>Home</li></a>
                         </ul>         
                         </div>
                     </nav>

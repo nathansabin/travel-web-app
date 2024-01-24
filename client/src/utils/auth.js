@@ -3,11 +3,9 @@ import axios from 'axios';
 
 const Auth = {
     getToken: function(){
-        console.log(localStorage.getItem('id_token'));
-        // return localStorage.getItem('id_token');
+        return localStorage.getItem('id_token');
     },
     isLoggedIn: function(){
-        console.log(this);
         const token = this.getToken();
         return token && !this.isTokenExpired() ? true : false;
     },
@@ -35,6 +33,7 @@ const Auth = {
             }
         );
         token = token.data;
+        console.log(token);
         if (!token) {
             return false;
         }
@@ -50,7 +49,6 @@ const Auth = {
             }
             );
         token = token.data;
-        console.log(token);
         if (!token) {
             return false;
         }

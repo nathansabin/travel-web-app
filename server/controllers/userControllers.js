@@ -29,13 +29,19 @@ module.exports = {
             res.status(500).json({ message: `500: server error ${err}`});
         }
     },
-    register: (req, res, next) => {
+    register: async (req, res, next) => {
         try {
             let username = req.body.username;
             let password = req.body.password;
-        
+            let token = {
+                username: username,
+                password: password
+            }
+
+            let signed = await Auth.sign(token);
+
             User.create({ username: username, password: password});
-            res.status(200).json({ message: 'success' });
+            res.status(200).json(signed);
         }
         catch {
             res.status(500).json({ message: 'something went wrong' });
