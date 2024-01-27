@@ -6,7 +6,8 @@ import Footer from './footer';
 import {
   Home,
   Login,
-  Register
+  Register,
+  Travel
 } from "../pages";
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
             <Route
               path="/"
               element={<Home/>}
+            />
+            <Route
+              path="/travel"
+              element={<Travel/>}
             />
           </Routes>
         </Router>
