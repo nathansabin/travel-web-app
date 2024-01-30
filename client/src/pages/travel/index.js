@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import MapContainer from '../../components/map';
+import Utils from '../../utils/utils';
 
 const Travel = () => {
-    const [location, setLocation] = useState("");
-    const [cordinates, setCordinates] = useState("");
+    const [ location, setLocation ] = useState("");
+    const [cordinates, setCordinates] = useState({});
+    const [ showMap, setShowMap] = useState(false);
 
     const locationChange = (event) => {
         const {value} = event.target
         setLocation(value);
     }
 
-    const updateLocation = (event) => {
-        event.preventDefault()
-        
+    const updateLocation = async(event) => {
+        event.preventDefault();
+
+        const cords = await Utils.geocode(location);
+        setCordinates(cords);
+
+        if (cords.lat && cords.lng) {
+            setShowMap(true);
+        }
+        else {
+            setShowMap(false);
+        }
+    }
+
+    const addLocation = () => {
+
     }
 
     return (
@@ -24,7 +39,12 @@ const Travel = () => {
                     <button type="submit">Choose location!</button>
                 </form>
            </section>
-           <MapContainer />
+           {showMap &&
+                <div> 
+                    <MapContainer location={cordinates}/>
+                    <button onClick={addLocation}>Save location</button>
+                </div>
+            }
         </div>
     );
 };

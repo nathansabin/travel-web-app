@@ -1,26 +1,21 @@
 import React, { useState, memo, useCallback } from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
   height: '400px'
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
-
-function MyComponent() {
+function MyComponent(props) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env. REACT_APP_GOOGLE_API
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API
   })
-
+  let center = props.location
   const [map, setMap] = useState(null)
 
   const onLoad = useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds();
     map.fitBounds(bounds);
 
     setMap(map)
