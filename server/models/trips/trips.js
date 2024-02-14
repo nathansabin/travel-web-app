@@ -3,16 +3,20 @@ const { Schema, model } = require("mongoose");
 const tripsSchema = new Schema(
     {
         userId: {
-            type: String,
+            type: Schema.ObjectId,
+            ref: 'User',
             required: true,
-            // needs to ref user
         },
-        Lat: {
-            type: number,
+        tripName: {
+            type: String,
+            maxLength: 50
+        },
+        lat: {
+            type: Number,
             required: true
         },
-        Lng: {
-            type: number,
+        lng: {
+            type: Number,
             required: true
         },
         locationName: {
@@ -25,7 +29,15 @@ const tripsSchema = new Schema(
         departureTime: {
             type: Date
         },
-        destination: [tripsSchema],
+        destination: {
+            type: Schema.ObjectId,
+            ref: 'tripsSchema'
+        },
+    },
+    {
+        toJSON: {
+            virtuals: true
+        }
     }
 );
 
