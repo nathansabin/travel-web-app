@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import './header.css';
 import auth from '../../utils/auth';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -17,31 +15,29 @@ function Header() {
     } 
 
     return (
-        <div className='header w-100'>
-            <div className='container-fluid'>
-                <div className='row w-100 justify-content-between'>
-                    <div className='col'>
-                    <h1>Header</h1>
+        <div className='p-1 bg-primary text-white'>
+            <div className='container mx-auto'>
+                <div className='flex flex-row justify-around'>
+                    <div className=''>
+                    <h1 className='text-6xl font-bold text-gray-200 p-1 flex justify-start'>Travel On</h1>
                     </div>
-                    <nav className='col-auto mt-2'>
-                        <div className="btn-group button">
-                        <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Menu
-                        </button>
-                        <ul show className="dropdown-menu">
-                            {!loggedIn &&
-                            <>
-                                <a href="/login"><li className='dropdown-item'>Login</li></a>
-                                <a href="/register"><li className='dropdown-item'>register</li></a>
-                            </>
-                            }
-                            {loggedIn && 
-                            <>
-                            <li onClick={logout} className='dropdown-item'>Logout</li>
-                            </>
-                            }
-                            <a href="/"><li className='dropdown-item'>Home</li></a>
-                        </ul>         
+                    <nav className=''>
+                        <div className=" p-2 flex flex-col justify-center">
+                        <button className="text-2xl font-semibold text-gray-200 p-2 justify-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</button>
+                            <ul show className="flex flex-row w-3/4 mx-auto justify-center">
+                                {!loggedIn &&
+                                <>
+                                    <a href="/login"><li className='p-1'>Login</li></a>
+                                    <a href="/register"><li className='p-1'>register</li></a>
+                                </>
+                                }
+                                {loggedIn && 
+                                <>
+                                <li onClick={logout} className='p-1'>Logout</li>
+                                </>
+                                }
+                                <a href="/"><li className='p-1'>Home</li></a>
+                            </ul>         
                         </div>
                     </nav>
                 </div>

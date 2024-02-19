@@ -1,16 +1,15 @@
 import React from 'react';
 import './footer.css';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Footer = () => {
     return (
-        <div className='footer w-100'>
-            <div className='container-fluid p-0'>
+        <div className='mt-auto w-full m-0 bg-secondary-200 text-secondary-100'>
+            <div className='container w-3/4 h-20 flex mx-auto flex-col text-center'>
                 <div className='links'>
-                    hello
+                    temp
                 </div>
-                <div className='credits'>
+                <div className='font-thin text-xl'>
+                    <span>Credit</span>
                     <h3>made by Nathan Sabin</h3>
                 </div>
             </div>

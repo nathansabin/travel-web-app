@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import './login.css';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import auth from '../../utils/auth';
 
 function Login() {
@@ -31,18 +29,19 @@ function Login() {
     }
 
     return (
-        <div className='login mt-3'>
-        <div className='container'>
-            <h1 className='col-12'>Login</h1>
-            <form className='col col-vert'>
-                <input onChange={handleChange} name='username' type="username" className='col-12 col-lg-8 mb-2'></input>
-                <input onChange={handleChange} name='password' type="password" className='col-12 col-lg-8 mb-3'></input>
-                <input onClick={loginUser} type="submit" className='col-8 col-lg-6 btn btn-primary button'></input>
+        <div className='w-100 mt-4 py-4 bg-gray-50'>
+        <div className='my-4 mx-auto container text-white bg-primary w-3/4 px-8 pt-4 pb-12 shadow-2xl'>
+            <h1 className='text-3xl justify-start'>Login</h1>
+            <hr className=''/>
+            <form className='flex flex-col'>
+                <input onChange={handleChange} name='username' type="username" className='my-2'></input>
+                <input onChange={handleChange} name='password' type="password" className='my-2'></input>
+                <input onClick={loginUser} type="submit" className='py-4 px-2 text-secondary-200 w-32 mt-4 bg-secondary-100 mx-auto rounded-md border-1 border-white'></input>
             </form>
             {loading && 
             <div>
                 <h3>Loading...</h3>
-            </ div>
+            </div>
             }
         </div>
         </div>

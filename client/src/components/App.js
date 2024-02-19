@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, createContext, useEffect } from 'react';
+// import { useState, createContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
@@ -12,7 +12,7 @@ import {
 
 function App() {
   return (
-    <div className="App">
+    <body className="flex flex-col min-h-screen text-gray-700 font-mono">
       <Header />
         <Router>
           <Routes>
@@ -35,7 +35,7 @@ function App() {
           </Routes>
         </Router>
       <Footer />
-    </div>
+    </body>
   );
 }
 
