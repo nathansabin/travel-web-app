@@ -31,17 +31,23 @@ module.exports = {
     },
     register: async (req, res, next) => {
         try {
+
             let username = req.body.username;
             let password = req.body.password;
-            let token = {
-                username: username,
-                password: password
+
+            let inUse = await User.find({ username: username })[0];
+            if (inUse) res.status(400).json({message: "Username already in use"});
+            else {
+                let token = {
+                    username: username,
+                    password: password
+                }
+
+                let signed = await Auth.sign(token);
+
+                User.create({ username: username, password: password});
+                res.status(200).json(signed);
             }
-
-            let signed = await Auth.sign(token);
-
-            User.create({ username: username, password: password});
-            res.status(200).json(signed);
         }
         catch {
             res.status(500).json({ message: 'something went wrong' });
