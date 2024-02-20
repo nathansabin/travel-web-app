@@ -34,8 +34,8 @@ function Login() {
             <h1 className='text-3xl justify-start'>Login</h1>
             <hr className=''/>
             <form className='flex flex-col'>
-                <input onChange={handleChange} name='username' type="username" className='my-2'></input>
-                <input onChange={handleChange} name='password' type="password" className='my-2'></input>
+                <input onChange={handleChange} name='username' type="username" className='my-2 text-black'></input>
+                <input onChange={handleChange} name='password' type="password" className='my-2 text-black'></input>
                 <input onClick={loginUser} type="submit" className='py-4 px-2 text-secondary-200 w-32 mt-4 bg-secondary-100 mx-auto rounded-md border-1 border-white'></input>
             </form>
             {loading && 

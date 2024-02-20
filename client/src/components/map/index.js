@@ -23,7 +23,7 @@ function MyComponent(props) {
 
   const onUnmount = useCallback(function callback(map) {
     setMap(null)
-  }, [])
+  }, []);
 
   return isLoaded ? (
       <GoogleMap
@@ -34,6 +34,7 @@ function MyComponent(props) {
         onUnmount={onUnmount}
       >
         { /* Child components, such as markers, info windows, etc. */ }
+        <Marker position={center}/>
         <></>
       </GoogleMap>
   ) : <></>
