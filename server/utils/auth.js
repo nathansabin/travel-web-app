@@ -10,19 +10,23 @@ class Auth {
             { expiresIn: time }
             );
     }
-    verify(req) {
+    async verify(req, res, next) {
         const token = req.body.auth;
 
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: missing token'});
         }
-        jwt.verfify(token, key, (err, decoded) => {
-            if (err) {
-                return res.status(401).json({ message: 'Unauthorized: invalid token'});
-            }
-            return decoded;
-        })
+        try {
+            let decoded = jwt.verify(token, key)
+            req.user = decoded;
+            next();
+        }
+        catch {
+            return res.status(401).json({ message: 'Unauthorized: invalid token'});
+        }
+    
     }
+
 }
 
 const auth = new Auth();

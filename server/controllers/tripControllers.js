@@ -3,12 +3,13 @@ const Trip = require("../models/trips/trips");
 const User = require("../models/user/user");
 
 module.exports = {
-    newTrip: (req, res, next) => {
+    newTrip: async (req, res, next) => {
         try {
-            // let userId = Auth.verify(res.body.token);
-            // console.log(userId);
+            var id = await User.find({ username: req.user.username });
+            id = id[0]._id;
+
             let tripData = {
-                userId: req.body.userId,
+                userId: id,
                 tripName: req.body.tripName,
                 lat: req.body.lat,
                 lng: req.body.lng,
@@ -18,8 +19,7 @@ module.exports = {
                 destination: req.body.destination
             }
             
-            if (!tripData.userId ||
-                !tripData.tripName ||
+            if (!tripData.tripName ||
                 !tripData.lat ||
                 !tripData.lng ||
                 !tripData.departureTime
@@ -39,6 +39,19 @@ module.exports = {
             res.status(200).json({ message: "200 OK"});
         } catch(err) {
             res.status(500).json(err);
+        }
+    },
+    readTrip: async (req, res, next) => {
+        try {
+            var userData = await User.find({ username: req.user.username });
+            userData = userData[0].trips;
+
+            var userTrips = await Trip.find( { _id: { $in: userData}});
+        
+            res.status(200).json(userTrips);
+        }
+        catch(err) {
+            res.status(500).json({ message: `${err}` });
         }
     }
 } 
