@@ -25,6 +25,7 @@ const Auth = {
         localStorage.removeItem('id_token');
     },
     register: async function(username, password){
+        try {
         let token = await axios(
             {
                 method: 'post',
@@ -33,27 +34,30 @@ const Auth = {
             }
         );
         token = token.data;
-        console.log(token);
-        if (!token) {
-            return false;
-        }
         localStorage.setItem('id_token', token);
         return true;
+    } catch {
+        console.log('error 404');
+        return false;
+    }
     },
     login: async function(username, password){
-        let token = await axios(
-            {
-                method: 'post',
-                url: 'http://localhost:3001/user/auth/login', 
-                data: { username:username, password: password}
-            }
-            );
-        token = token.data;
-        if (!token) {
+        try {
+            let token = await axios(
+                {
+                    method: 'post',
+                    url: 'http://localhost:3001/user/auth/login', 
+                    data: { username:username, password: password}
+                }
+                );
+            
+            token = token.data;
+            localStorage.setItem('id_token', token);
+            return true;
+        } catch {
+            console.log(`ERROR 404`);
             return false;
         }
-        localStorage.setItem('id_token', token);
-        return true;
     }
 }
 

@@ -21,9 +21,10 @@ function Login() {
 
         const { username, password } = formState;
         const login = await auth.login(username, password);
-
+        console.log(login);
         setLoading(false);
         if (login) {
+            console.log(true);
             window.location.assign('/');
         }
     }
