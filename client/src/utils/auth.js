@@ -35,6 +35,7 @@ const Auth = {
         );
         token = token.data;
         localStorage.setItem('id_token', token);
+        console.log(1234)
         return true;
     } catch {
         console.log('error 404');
@@ -42,6 +43,7 @@ const Auth = {
     }
     },
     login: async function(username, password){
+        console.log(`data ${username}, ${password}`)
         try {
             let token = await axios(
                 {

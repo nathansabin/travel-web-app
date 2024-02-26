@@ -1,6 +1,7 @@
 const intialState = {
     username: '',
-    password: ''
+    password: '',
+    verifyPassword: ''
 }
 
 const userReducer = (userState = intialState, action) => {
@@ -8,12 +9,17 @@ const userReducer = (userState = intialState, action) => {
         case 'CHANGE_USERNAME':
             return {
                 ...userState,
-                username: action.input
+                username: action.payload
             }
         case 'CHANGE_PASSWORD':
             return {
                 ...userState,
-                password: action.input
+                password: action.payload
+            }
+        case 'CHANGE_VERIFYPASSWORD':
+            return {
+                ...userState,
+                verifyPassword: action.payload
             }
         default:
             return userState;

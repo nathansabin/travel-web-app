@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUsername, setPassword, setVerify } from '../../utils/redux/actions/userAction';
 import auth from '../../utils/auth';
 
 function Login() {
-    const [ formState, setFormState ] = useState(useSelector((state)=>state.user));
+    const { username, password, verifyPassword } = useSelector((state)=>state.user);
     const [ loading, setLoading] = useState(false);
     const [ error, setError ] = useState(false);
     const dispatch = useDispatch();
@@ -11,31 +12,34 @@ function Login() {
     const handleChange = (event) => {
         const { name, value } = event.target;
 
-        setFormState({
-            ...formState,
-            [name]: value
-        });
+        if (name === 'username') {
+            dispatch(setUsername(value));
+        } else if (name === 'password'){
+            dispatch(setPassword(value));
+        } else if (name === 'verifyPassword'){
+            dispatch(setVerify(value));
+        }
     }
 
     const registerUser = async(event) => {
         event.preventDefault();
         setLoading(true);
 
-        const { username, password, verifyPassword } = formState;
         let data;
 
         if (password === verifyPassword) {
-            data = auth.register(username, password);
+            data = await auth.register(username, password);
         }
-        dispatch({ type: 'CHANGE_USERNAME', input: username });
-        dispatch({ type: 'CHANGE_PASSWORD', input: password });
         setLoading(false);
         if (data) {
             window.location.assign('/');
         }
         setError(true);
     }
-    console.log(formState);
+
+    useEffect(() => {
+        console.log(`username:${username} password:${password} verify:${verifyPassword}`)
+    }, [username, password, verifyPassword])
 
     return (
         <div className='w-100 mt-4 py-4 bg-gray-50'>
@@ -43,8 +47,8 @@ function Login() {
             <h1 className='text-3xl justify-start'>Register</h1>
             <hr className=''/>
             <form className='flex flex-col'>
-                <input onChange={handleChange} name='username' type="username" value={formState.username} className='my-2 text-black'></input>
-                <input onChange={handleChange} name='password' type="password" className='my-2 text-black'></input>
+                <input onChange={handleChange} name='username' type="username" value={username} className='my-2 text-black'></input>
+                <input onChange={handleChange} name='password' type="password" value={password} className='my-2 text-black'></input>
                 <input onChange={handleChange} name='verifyPassword' type="password" className='my-2 text-black'></input>
                 <input onClick={registerUser} type="submit" className='py-4 px-2 text-white w-32 mt-4 bg-secondary-100 mx-auto rounded-md border-1 border-white'></input>
             </form>
